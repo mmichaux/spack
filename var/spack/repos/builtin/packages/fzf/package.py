@@ -17,6 +17,8 @@ class Fzf(MakefilePackage):
 
     executables = ["^fzf$"]
 
+    version("0.31.0", sha256="df4edee32cb214018ed40160ced968d4cc3b63bba5b0571487011ee7099faa76")
+    version("0.30.0", sha256="a3428f510b7136e39104a002f19b2e563090496cb5205fa2e4c5967d34a20124")
     version("0.22.0", sha256="3090748bb656333ed98490fe62133760e5da40ba4cd429a8142b4a0b69d05586")
     version("0.17.5", sha256="de3b39758e01b19bbc04ee0d5107e14052d3a32ce8f40d4a63d0ed311394f7ee")
     version("0.17.4", sha256="a4b009638266b116f422d159cd1e09df64112e6ae3490964db2cd46636981ff0")
@@ -32,6 +34,7 @@ class Fzf(MakefilePackage):
     depends_on("go@1.11:", type="build")
 
     variant("vim", default=False, description="Install vim plugins for fzf")
+    variant("shell", default=False, description="Install shell completions and key-bindings")
 
     patch("github_mirrors.patch", when="@:0.17.5")
 
@@ -48,14 +51,20 @@ class Fzf(MakefilePackage):
         shutil.rmtree(glide_home, ignore_errors=True)
         os.mkdir(glide_home)
 
+    def setup_build_environment(self, env):
+        if self.spec.satisfies("@0.24.1:"):
+            env["FZF_VERSION"] = self.spec.version.dotted.string
+            env["FZF_REVISION"] = "tarball"
+
     def install(self, spec, prefix):
         make("install")
 
         mkdir(prefix.bin)
         install("bin/fzf", prefix.bin)
 
-    @run_after("install")
-    def post_install(self):
-        if "+vim" in self.spec:
+        if spec.satisfies("+shell"):
+            install_tree("shell", prefix.shell)
+
+        if spec.satisfies("+vim"):
             mkdir(self.prefix.plugin)
             install("plugin/fzf.vim", self.prefix.plugin)
