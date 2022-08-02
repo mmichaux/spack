@@ -44,6 +44,8 @@ class Go(Package):
 
     maintainers = ["alecbcs"]
 
+    version("1.18.4", sha256="4525aa6b0e3cecb57845f4060a7075aafc9ab752bb7b6b4cf8a212d43078e1e4")
+    version("1.18.3", sha256="0012386ddcbb5f3350e407c679923811dbd283fcdc421724931614a842ecbc2d")
     version("1.18", sha256="38f423db4cc834883f2b52344282fa7a39fbb93650dc62a11fdf0be6409bdad6")
     version("1.17.8", sha256="2effcd898140da79a061f3784ca4f8d8b13d811fb2abe9dad2404442dabbdf7a")
     version("1.17.7", sha256="c108cd33b73b1911a02b697741df3dea43e01a5c4e08e409e8b3a0e3745d2b4d")
