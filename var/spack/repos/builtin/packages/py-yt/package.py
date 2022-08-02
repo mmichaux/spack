@@ -25,6 +25,7 @@ class PyYt(PythonPackage):
     version("develop", branch="master")
     version("develop-4.0", branch="yt-4.0")
 
+    version("4.0.4", sha256="07a157853da1ebc82a9ae464c353356989be3656cffb0b7cf3420a09ed092372")
     version("3.6.1", sha256="a1be3ea7e18729d3cd86e9234dc4731bf23200dff3344fa756fe173ea36cc747")
     version("3.6.0", sha256="4e3bab11766d5950477ba4d6c528a495e12cda1155227361b4579ac4ac0bf975")
     version("3.5.1", sha256="cdc0ecb153e737d74820581f311d1be7b6f1a7ee065ad69706470939db88b041")
@@ -44,6 +45,20 @@ class PyYt(PythonPackage):
     variant("h5py", default=True, description="enable h5py support")
     variant("scipy", default=True, description="enable scipy support")
     variant("rockstar", default=False, description="enable rockstar support")
+
+    depends_on("python@3.6:3.11", when="@4:", type=("build", "run"))
+
+    depends_on("py-matplotlib@2.1:", when="@4:", type=("build", "run"))
+    depends_on("py-more-itertools@8.4:", when="@4:", type=("build", "run"))
+    depends_on("py-numpy@1.13.3:", when="@4:", type=("build", "run"))
+    depends_on("py-packaging@20.9:", when="@4:", type=("build", "run"))
+    depends_on("py-pyyaml@4.2:", when="@4:", type=("build", "run"))
+    depends_on("py-sympy@1.2:", when="@4:", type=("build", "run"))
+    depends_on("py-tomli@1.2.3:", when="@4:", type=("build", "run"))
+    depends_on("py-tomli-w@0.4.0:", when="@4:", type=("build", "run"))
+    depends_on("py-tqdm@3.4:", when="@4:", type=("build", "run"))
+    depends_on("py-unyt@2.8:", when="@4:", type=("build", "run"))
+    depends_on("py-cmyt@0.2.2:", when="@4:", type=("build", "run"))
 
     depends_on("py-astropy@4.0.1:", type=("build", "run"), when="+astropy")
     depends_on("py-cython@0.24:", type=("build", "run"))
