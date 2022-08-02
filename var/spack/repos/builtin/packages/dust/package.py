@@ -15,6 +15,14 @@ class Dust(Package):
     maintainers = ["fangohr"]
 
     version(
+        "0.8.1",
+        sha256="9f3b5e93c62bb54139479ac4396549fc62389ac9a7d300b088cdf51cd0e90e22"
+    )
+    version(
+        "0.8.0",
+        sha256="dc033a6fb4f31520ab1bb403dd910aed04037964ab1406363cce2185a8bd3d3b",
+    )
+    version(
         "0.7.5",
         sha256="f892aaf7a0a7852e12d01b2ced6c2484fb6dc5fe7562abdf0c44a2d08aa52618",
     )
