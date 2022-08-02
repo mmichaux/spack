@@ -29,6 +29,7 @@ class Pandoc(Package):
     elif platform.system() == "Linux":
         url = "https://github.com/jgm/pandoc/releases/download/2.14.0.3/pandoc-2.14.0.3-linux-amd64.tar.gz"
 
+        version("2.18", sha256="103df36dc21081b7205d763ef7705e340eb0ea7e18694239b328a549892cc007")
         version(
             "2.14.0.3", sha256="3ed8bf98126fb68fa6ce05861ab866f5100edc38bcf47bc0bb000692453344c0"
         )
