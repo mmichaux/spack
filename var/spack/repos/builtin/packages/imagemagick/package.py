@@ -13,11 +13,14 @@ class Imagemagick(AutotoolsPackage):
     homepage = "https://www.imagemagick.org"
     url = "https://github.com/ImageMagick/ImageMagick/archive/7.0.2-7.tar.gz"
 
+    version("7.1.0-45", sha256="3df6ca6dff15a4e8a20b4593c60285a59e38890440494d91a344e5c0e2bb3eec")
+    version("7.1.0-37", sha256="a54888a1a46dbb808705a3e6c6b5ecb93ee30189a8ae6ea0f02300a0ab0d0996")
     version("7.0.8-7", sha256="fadb36b59f310e9eee5249ecb2326b323a64da6cc716dd6d08ece8ea2c780b81")
     version("7.0.5-9", sha256="b85b269e0ed1628e88e840053823f8a33c314b2271f04762f43d33e9d0b4d264")
     version("7.0.2-7", sha256="f2f18a97f861c1668befdaff0cc3aaafb2111847aab028a88b4c2cb017acfbaa")
     version("7.0.2-6", sha256="7d49ca8030f895c683cae69c52d8edfc4876de651f5b8bfdbea907e222480bd3")
 
+    depends_on("zstd")
     depends_on("jpeg")
     depends_on("pango")
     depends_on("libtool", type="build")
