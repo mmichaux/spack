@@ -45,8 +45,13 @@ class Vtk(CMakePackage):
     variant("python", default=False, description="Enable Python support")
     variant("qt", default=False, description="Build with support for Qt")
     variant("xdmf", default=False, description="Build XDMF file support")
-    variant("ffmpeg", default=False, description="Build with FFMPEG support")
     variant("mpi", default=True, description="Enable MPI support")
+
+    variant("ffmpeg", default=False, description="Build with FFMPEG support")
+    patch("https://gitlab.kitware.com/vtk/vtk/-/commit/34276346ac379fecbd615322f18de837bd2c9ea2.patch",
+          sha256="955ef22d2541beb9935557ef09a802b6504855a350f27ff056734679da8f0281",
+          when="@9.0.3 ^ffmpeg@5:")
+    conflicts("ffmpeg@5:", when="@:9.0.2")
 
     patch("gcc.patch", when="@6.1.0")
     # patch to fix some missing stl includes
