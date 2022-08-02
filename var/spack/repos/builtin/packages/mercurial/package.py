@@ -14,6 +14,12 @@ class Mercurial(PythonPackage):
     homepage = "https://www.mercurial-scm.org"
     url = "https://www.mercurial-scm.org/release/mercurial-5.3.tar.gz"
 
+    version("6.2.1", sha256="8ac5d7a20d1c2ad54d4c263d134164646dc34a8e3a6bed69cfbeabaf8d3882da")
+    version("6.2", sha256="d382b5e3fab8931126013201731416574b35ae85787404bb2a0819f41bb88972")
+    version("6.1.4", sha256="f361f9802b36e357ac019ceb712ca11de8332b07deadeed8dfa904f05bf7ca78")
+    version("6.1.3", sha256="e022c1ef28e5502793f4306724e8443c5d72714841906f46ca351efd7ba91b7c")
+    version("6.1.2", sha256="a52810fc01409828c4974d0bc2cbb5c80e948d5b584cfb1a7699623e924a2f2a")
+    version("6.1.1", sha256="57b8a461d0ce13d9ae3817d8a8bdf9032e34edfaac3dbccb3b66b835dce93388")
     version("5.8", sha256="fc5d6a8f6478d88ef83cdd0ab6d86ad68ee722bbdf4964e6a0b47c3c6ba5309f")
     version("5.7.1", sha256="cb5139144ccb2ef648f36963c8606d47dea1cb0e22aa2c055d6f860ce3fde7b0")
     version("5.7", sha256="609c3e7c9276dd75b03b713eccc10f5e0553001f35ae21600bcea1509699c601")
