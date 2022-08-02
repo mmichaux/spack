@@ -86,6 +86,9 @@ class Rust(Package):
     # The `x.py` bootstrapping script did not exist prior to Rust 1.17. It
     # would be possible to support both, but for simplicitly, we only support
     # Rust 1.17 and newer
+    version('1.62.1', sha256='72acbe6ffcd94f598382a7430b0d85ee8f679e6d0b27f3f566ed1c16c978133f')
+    version("1.62.0", sha256="7d0878809b64d206825acae3eb7f60afb2212d81e3de1adf4c11c6032b36c027")
+    version("1.61.0", sha256="ad0b4351675aa9abdf4c7e066613bd274c4391c5506db152983426376101daed")
     version("1.60.0", sha256="20ca826d1cf674daf8e22c4f8c4b9743af07973211c839b85839742314c838b7")
     version("1.58.1", sha256="a839afdd3625d6f3f3c4c10b79813675d1775c460d14be1feaf33a6c829c07c7")
     version("1.51.0", sha256="7a6b9bafc8b3d81bbc566e7c0d1f17c9f499fd22b95142f7ea3a8e4d1f9eb847")
@@ -268,6 +271,26 @@ class Rust(Package):
     # This dictionary contains a version: hash dictionary for each supported
     # Rust target.
     rust_releases = {
+        "1.62.1": {
+            "x86_64-unknown-linux-gnu": "dd7d82b8fa8eae59729e1c31fe59a9de6ee61d08ab40ce016185653beebe04d2",
+            "powerpc64le-unknown-linux-gnu": "1d3248e1a673cda87cf443cd4334ff5fb53e6f87c72d3587b07e5c0cb507f3ae",
+            "aarch64-unknown-linux-gnu": "1311fa8204f895d054c23a3481de3b158a5cd3b3a6338761fee9cdf4dbf075a5",
+            "x86_64-apple-darwin": "0a04dcf2b521239826f3eaa66d77169d91e68087ccc3107b54e8aba7c02c9adf",
+            "aarch64-apple-darwin": "6d1671ea31b05cab5e2587cc2b295b3e7232b0135f0977355618e2a01933ff0a",
+        },
+        "1.62.0": {
+            "x86_64-unknown-linux-gnu":      "4172d3cb316498025410bdf33a4d0f756f5e77fbaee1fb042ccdef78239be1db",
+            "powerpc64le-unknown-linux-gnu": "c693b3adc77d9458094e241dd0bf6decd6eb5ce91ef597339a67ff9bae361a25",
+            "aarch64-unknown-linux-gnu":     "eb15623acab56523bab68826db03c66f926adb6376363dd5e2a8801a16bc4542",
+            "x86_64-apple-darwin":           "e4c2b363a54eb147fa93b966431c221f6af59779e63bb4ae825521f9258294b4",
+            "aarch64-apple-darwin":          "f3a4e925474e6d54617a08ea8b8d0886590f70553e8c41ad3bbad69083876977"
+        },
+        "1.61.0": {
+            "x86_64-unknown-linux-gnu":      "066b324239d30787ce64142d7e04912f2e1850c07db3b2354d8654e02ff8b23a",
+            "powerpc64le-unknown-linux-gnu": "6d5cd579b68a2adc20384406c69a92beaaf4941056e126ff0ed1ec2f3a4e721f",
+            "aarch64-unknown-linux-gnu":     "261cd47bc3c98c9f97b601d1ad2a7d9b33c9ea63c9a351119c2f6d4e82f5d436",
+            "x86_64-apple-darwin":           "d851f1a473926a5d8f111ed08002047a5dc4ad944a5b7f8d5d2f1f266b51e66a"
+        },
         "1.60.0": {
             "x86_64-unknown-linux-gnu": "b8a4c3959367d053825e31f90a5eb86418eb0d80cacda52bfa80b078e18150d5",
             "powerpc64le-unknown-linux-gnu": "80125e90285b214c2b1f56ab86a09c8509aa17aec9d7127960a86a7008e8f7de",
