@@ -25,6 +25,7 @@ class PyPybind11(CMakePackage, PythonPackage):
     maintainers = ["ax3l"]
 
     version("master", branch="master")
+    version("2.9.2", sha256="6bd528c4dbe2276635dc787b6b1f2e5316cf6b49ee3e150264e455a0d68d19c1")
     version("2.9.1", sha256="c6160321dc98e6e1184cc791fbeadd2907bb4a0ce0e447f2ea4ff8ab56550913")
     version("2.9.0", sha256="057fb68dafd972bc13afb855f3b0d8cf0fa1a78ef053e815d9af79be7ff567cb")
     version("2.8.1", sha256="f1bcc07caa568eb312411dde5308b1e250bd0e1bc020fae855bf9f43209940cc")
