@@ -11,8 +11,9 @@ class PyCmakeFormat(PythonPackage):
     cmake. Tools include cmake-annotate, cmake-format, cmake-lint,
     and ctest-to."""
 
-    pypi = "cmake_format/cmake_format-0.6.9.tar.gz"
+    pypi = "cmake-format/cmake-format-0.6.13.tar.gz"
 
+    version("0.6.13", sha256="1a48b779067ecca68c498691d07d5c9d3df9803a7e0c5b641128fa6efe5ae489")
     version("0.6.10", sha256="82f0ef16236225cb43f45bfb6983ef7f6f72634727a1a6c26290402527bdd793")
     version("0.6.9", sha256="b2f8bf2e9c6651126f2f2954b7803222b0faf6b8649eabc4d965ea97483a4d20")
 
