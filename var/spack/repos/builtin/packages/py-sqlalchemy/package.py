@@ -37,6 +37,7 @@ class PySqlalchemy(PythonPackage):
         "sqlalchemy.sql",
     ]
 
+    version("1.4.37", sha256="3688f92c62db6c5df268e2264891078f17ecb91e3141b400f2e28d0f75796dea")
     version("1.4.20", sha256="38ee3a266afef2978e82824650457f70c5d74ec0cadec1b10fe5ed6f038eb5d0")
     version("1.3.19", sha256="3bba2e9fbedb0511769780fe1d63007081008c5c2d7d715e91858c94dbaa260e")
     version("1.3.9", sha256="272a835758908412e75e87f75dd0179a51422715c125ce42109632910526b1fd")
