@@ -73,6 +73,13 @@ class Libzmq(AutotoolsPackage):
         when="@4.2.3:4.3.4 %gcc@11:",
     )
 
+    # Fix build failure with GCC 12
+    patch(
+        "https://github.com/zeromq/libzmq/commit/176d72cc9b3bdcc416fd11dbc82e7b386dda32b7.patch?full_index=1",
+        sha256="edca864cba914481a5c97d2e975ba64ca1d2fbfc0044e9a78c48f1f7b2bedb6f",
+        when="@4.3.4 %gcc@12:"
+    )
+
     def url_for_version(self, version):
         if version <= Version("4.1.4"):
             url = "http://download.zeromq.org/zeromq-{0}.tar.gz"
