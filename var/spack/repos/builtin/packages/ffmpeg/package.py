@@ -15,6 +15,9 @@ class Ffmpeg(AutotoolsPackage):
 
     maintainers = ["xjrc"]
 
+    version('5.1', sha256='32b56fb01ce90d452958ae25e91c9564abf49ed5453c127bec23c63e530aa8fa')
+    version("5.0.1", sha256="28df33d400a1c1c1b20d07a99197809a3b88ef765f5f07dc1ff067fac64c59d6")
+    version("4.4.2", sha256="f98a482520c47507521a907914daa9efbc1384e0591b5afc3da18aa897de2948")
     version("4.4.1", sha256="8fc9f20ac5ed95115a9e285647add0eedd5cc1a98a039ada14c132452f98ac42")
     version("4.3.2", sha256="ab3a6d6a70358ba0a5f67f37f91f6656b7302b02e98e5b8c846c16763c99913a")
     version("4.2.2", sha256="b620d187c26f76ca19e74210a0336c3b8380b97730df5cdf45f3e69e89000e5c")
@@ -173,7 +176,6 @@ class Ffmpeg(AutotoolsPackage):
             "libvorbis",
             "libvpx",
             "libx264",
-            "avresample",
             "nonfree",
             "openssl",
             "shared",
@@ -194,6 +196,8 @@ class Ffmpeg(AutotoolsPackage):
             variant_opts.append("sdl2")
         if spec.satisfies("@4:"):
             variant_opts.append("libaom")
+        if spec.satisfies("@:4"):
+            variant_opts.append("avresample")
             # TODO: enable when libxml2 header issue is resolved
             # variant_opts.append('libxml2')
 
