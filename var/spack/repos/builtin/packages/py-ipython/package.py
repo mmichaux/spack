@@ -14,6 +14,8 @@ class PyIpython(PythonPackage):
     homepage = "https://ipython.readthedocs.org/"
     pypi = "ipython/ipython-7.18.1.tar.gz"
 
+    version("8.3.0", sha256="807ae3cf43b84693c9272f70368440a9a7eaa2e7e6882dad943c32fbf7e51402")
+    version("8.2.0", sha256="70e5eb132cac594a34b5f799bd252589009905f05104728aea6a403ec2519dc1")
     version("8.0.1", sha256="ab564d4521ea8ceaac26c3a2c6e5ddbca15c8848fd5a5cc325f960da88d42974")
     version("7.28.0", sha256="2097be5c814d1b974aea57673176a924c4c8c9583890e7a5f082f547b9975b11")
     version("7.27.0", sha256="58b55ebfdfa260dad10d509702dc2857cb25ad82609506b070cf2d7b7df5af13")
