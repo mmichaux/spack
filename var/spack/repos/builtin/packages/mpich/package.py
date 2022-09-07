@@ -180,6 +180,14 @@ with '-Wl,-commons,use_dylibs' and without
         when="@3.3:3.3.0",
     )
 
+    # Fix reduce operations for unsigned integers
+    # See https://github.com/pmodels/mpich/issues/6083
+    patch(
+        "https://github.com/pmodels/mpich/commit/3a1f618e017547c9710ab4fb01ae258a01477190.patch?full_index=1",
+        sha256="d4c0e99a80f6cb0cb0ced91f6ad5da776c4a70f70f805f08096939ec9a92483e",
+        when="@4.0:4.0.2",
+    )
+
     depends_on("findutils", type="build")
     depends_on("pkgconfig", type="build")
 
@@ -280,7 +288,7 @@ with '-Wl,-commons,use_dylibs' and without
         for exe in exes:
             variants = []
             output = Executable(exe)(output=str, error=str)
-            if re.search(r"--with-hwloc-prefix=embedded", output):
+            if re.search(r"--with-hwloc(-prefix)*=embedded", output):
                 variants.append("~hwloc")
 
             if re.search(r"--with-pm=hydra", output):
@@ -457,15 +465,24 @@ with '-Wl,-commons,use_dylibs' and without
         config_args = [
             "--disable-silent-rules",
             "--enable-shared",
-            "--with-hwloc-prefix={0}".format(
-                spec["hwloc"].prefix if "^hwloc" in spec else "embedded"
-            ),
             "--with-pm={0}".format("hydra" if "+hydra" in spec else "no"),
             "--{0}-romio".format("enable" if "+romio" in spec else "disable"),
             "--{0}-ibverbs".format("with" if "+verbs" in spec else "without"),
             "--enable-wrapper-rpath={0}".format("no" if "~wrapperrpath" in spec else "yes"),
             "--with-yaksa={0}".format(spec["yaksa"].prefix if "^yaksa" in spec else "embedded"),
         ]
+
+        # hwloc configure option changed in 4.0
+        if spec.satisfies("@4.0:"):
+            config_args.append(
+                "--with-hwloc={0}".format(spec["hwloc"].prefix if "^hwloc" in spec else "embedded")
+            )
+        else:
+            config_args.append(
+                "--with-hwloc-prefix={0}".format(
+                    spec["hwloc"].prefix if "^hwloc" in spec else "embedded"
+                )
+            )
 
         if "~fortran" in spec:
             config_args.append("--disable-fortran")

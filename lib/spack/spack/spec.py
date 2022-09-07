@@ -243,6 +243,8 @@ class ArchSpec(object):
         """Return the frontend architecture"""
         return ArchSpec._return_arch("frontend", "frontend")
 
+    __slots__ = "_platform", "_os", "_target"
+
     def __init__(self, spec_or_platform_tuple=(None, None, None)):
         """Architecture specification a package should be built with.
 
@@ -281,6 +283,22 @@ class ArchSpec(object):
             platform_tuple = (_string_or_none(platform), _string_or_none(operating_system), target)
 
         self.platform, self.os, self.target = platform_tuple
+
+    @staticmethod
+    def override(init_spec, change_spec):
+        if init_spec:
+            new_spec = init_spec.copy()
+        else:
+            new_spec = ArchSpec()
+        if change_spec.platform:
+            new_spec.platform = change_spec.platform
+            # TODO: if the platform is changed to something that is incompatible
+            # with the current os, we should implicitly remove it
+        if change_spec.os:
+            new_spec.os = change_spec.os
+        if change_spec.target:
+            new_spec.target = change_spec.target
+        return new_spec
 
     def _autospec(self, spec_like):
         if isinstance(spec_like, ArchSpec):
@@ -553,6 +571,8 @@ class CompilerSpec(object):
     versions that a package should be built with.  CompilerSpecs have a
     name and a version list."""
 
+    __slots__ = "name", "versions"
+
     def __init__(self, *args):
         nargs = len(args)
         if nargs == 1:
@@ -677,6 +697,8 @@ class DependencySpec(object):
     - deptypes: list of strings, representing dependency relationships.
     """
 
+    __slots__ = "parent", "spec", "deptypes"
+
     def __init__(self, parent, spec, deptypes):
         self.parent = parent
         self.spec = spec
@@ -717,6 +739,9 @@ _valid_compiler_flags = ["cflags", "cxxflags", "fflags", "ldflags", "ldlibs", "c
 
 
 class FlagMap(lang.HashableMap):
+
+    __slots__ = ("spec",)
+
     def __init__(self, spec):
         super(FlagMap, self).__init__()
         self.spec = spec
@@ -801,6 +826,8 @@ class _EdgeMap(Mapping):
 
     Edges are stored in a dictionary and keyed by package name.
     """
+
+    __slots__ = "edges", "store_by_child"
 
     def __init__(self, store_by=EdgeDirection.child):
         # Sanitize input arguments
@@ -2232,6 +2259,33 @@ class Spec(object):
             yield dep_name, dep_hash, list(deptypes), hash_type
 
     @staticmethod
+    def override(init_spec, change_spec):
+        # TODO: this doesn't account for the case where the changed spec
+        # (and the user spec) have dependencies
+        new_spec = init_spec.copy()
+        package_cls = spack.repo.path.get_pkg_class(new_spec.name)
+        if change_spec.versions and not change_spec.versions == spack.version.ver(":"):
+            new_spec.versions = change_spec.versions
+        for variant, value in change_spec.variants.items():
+            if variant in package_cls.variants:
+                if variant in new_spec.variants:
+                    new_spec.variants.substitute(value)
+                else:
+                    new_spec.variants[variant] = value
+            else:
+                raise ValueError("{0} is not a variant of {1}".format(variant, new_spec.name))
+        if change_spec.compiler:
+            new_spec.compiler = change_spec.compiler
+        if change_spec.compiler_flags:
+            for flagname, flagvals in change_spec.compiler_flags.items():
+                new_spec.compiler_flags[flagname] = flagvals
+        if change_spec.architecture:
+            new_spec.architecture = ArchSpec.override(
+                new_spec.architecture, change_spec.architecture
+            )
+        return new_spec
+
+    @staticmethod
     def from_literal(spec_dict, normal=True):
         """Builds a Spec from a dictionary containing the spec literal.
 
@@ -2651,7 +2705,6 @@ class Spec(object):
                 if spec._dup(replacement, deps=False, cleardeps=False):
                     changed = True
 
-                spec._dependencies.owner = spec
                 self_index.update(spec)
                 done = False
                 break
@@ -2981,7 +3034,7 @@ class Spec(object):
         # Any specs that were concrete before finalization will already have a cached
         # DAG hash.
         for spec in self.traverse():
-            self._cached_hash(ht.dag_hash)
+            spec._cached_hash(ht.dag_hash)
 
     def concretized(self, tests=False):
         """This is a non-destructive version of concretize().
@@ -4983,6 +5036,8 @@ _lexer = SpecLexer()
 class SpecParser(spack.parse.Parser):
     """Parses specs."""
 
+    __slots__ = "previous", "_initial"
+
     def __init__(self, initial_spec=None):
         """Construct a new SpecParser.
 
@@ -5253,6 +5308,12 @@ class SpecParser(spack.parse.Parser):
         end = None
         if self.accept(ID):
             start = self.token.value
+            if self.accept(EQ):
+                # This is for versions that are associated with a hash
+                # i.e. @[40 char hash]=version
+                start += self.token.value
+                self.expect(VAL)
+                start += self.token.value
 
         if self.accept(COLON):
             if self.accept(ID):

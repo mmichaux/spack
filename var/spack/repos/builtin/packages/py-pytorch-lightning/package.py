@@ -14,6 +14,11 @@ class PyPytorchLightning(PythonPackage):
 
     maintainers = ["adamjstewart"]
 
+    version("1.7.4", sha256="d80df235228a8f6d6b77df4bfa34b3d667d734bd40e960bb4ca553a2746523eb")
+    version("1.7.3", sha256="605ab313e54992261db74df4a6a6d4d556f319ea8a08eff2f30d80e8b898eb14")
+    version("1.7.2", sha256="76e4d1af70721fc9a294641668c905e2db76e866f7bf07a5e37f72fa3cb87141")
+    version("1.7.1", sha256="bdf4815431e15581422154bafd2506f44d42baec8772b9eb36b9638436aa3728")
+    version("1.7.0", sha256="f3be1500e3ba9ff06c4b8f74d66f02757a5ae73b4cd2f63f47137c501a0400e2")
     version("1.6.5", sha256="8d521f2619b9db2ada5bbaf9713330d01460e75a11e4bc0bc2ca25fd37c47c57")
     version("1.6.4", sha256="5459f2c3e67676ec59e94576d1499e9559d214e7df41eadd135db64b4ccf54b9")
     version("1.6.3", sha256="beb1f36a6dae91f5fef0959a04af1092dff4f3f4d99c20f0e033f84e615903e3")
@@ -31,6 +36,7 @@ class PyPytorchLightning(PythonPackage):
     depends_on("py-setuptools", type="build")
     depends_on("py-numpy@1.17.2:", when="@1.3:", type=("build", "run"))
     depends_on("py-numpy@1.16.6:", when="@:1.2", type=("build", "run"))
+    depends_on("py-torch@1.9:", when="@1.7:", type=("build", "run"))
     depends_on("py-torch@1.8:", when="@1.6:", type=("build", "run"))
     depends_on("py-torch@1.6:", when="@1.4:1.5", type=("build", "run"))
     depends_on("py-torch@1.4:", when="@:1.3", type=("build", "run"))
@@ -42,8 +48,10 @@ class PyPytorchLightning(PythonPackage):
     depends_on("py-pyyaml@5.1:5.3,5.5:", when="@:1.2", type=("build", "run"))
     depends_on("py-fsspec@2021.05.0:2021.05,2021.06.1:+http", when="@1.3:", type=("build", "run"))
     depends_on("py-fsspec@0.8.1:+http", when="@:1.2", type=("build", "run"))
+    depends_on("py-tensorboard@2.9.1:", when="@1.7:", type=("build", "run"))
     depends_on("py-tensorboard@2.2.0:", when="@1.5:", type=("build", "run"))
     depends_on("py-tensorboard@2.2.0:2.4,2.5.1:", when="@:1.4", type=("build", "run"))
+    depends_on("py-torchmetrics@0.7:", when="@1.7:", type=("build", "run"))
     depends_on("py-torchmetrics@0.4.1:", when="@1.5:", type=("build", "run"))
     depends_on("py-torchmetrics@0.4.0:", when="@1.4", type=("build", "run"))
     depends_on("py-torchmetrics@0.2.0:", when="@1.3", type=("build", "run"))
@@ -58,4 +66,4 @@ class PyPytorchLightning(PythonPackage):
     depends_on("py-typing-extensions", when="@1.4:1.5", type=("build", "run"))
     depends_on("py-future@0.17.1:", when="@:1.5", type=("build", "run"))
     depends_on("pil@:8.2,8.3.1:", when="@1.3", type=("build", "run"))
-    depends_on("py-protobuf@:3.20.1", when="@1.6.4:", type="build")
+    depends_on("py-protobuf@:3.20.1", when="@1.6.4:1.6", type="build")
