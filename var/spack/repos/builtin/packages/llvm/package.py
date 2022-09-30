@@ -360,6 +360,7 @@ class Llvm(CMakePackage, CudaPackage):
 
     # add -lpthread to build OpenMP libraries
     patch("llvm13-14-thread.patch", when="@13:14")
+    patch("llvm15-thread.patch", when="@15")
 
     # avoid build failed with Fujitsu compiler
     patch("llvm13-fujitsu.patch", when="@13 %fj")
@@ -376,6 +377,12 @@ class Llvm(CMakePackage, CudaPackage):
         sha256="514926d661635de47972c7d403c9c4669235aa51e22e56d44676d2a2709179b6",
         when="@8:11",
     )
+
+    # fix detection of LLDB_PYTHON_EXE_RELATIVE_PATH
+    # see https://reviews.llvm.org/D133513
+    # TODO: adjust version constraint and switch to fetching from the upstream GitHub repo
+    #  when/if the bugfix is merged
+    patch("D133513.diff", level=0, when="@14:15+lldb+python")
 
     # The functions and attributes below implement external package
     # detection for LLVM. See:
